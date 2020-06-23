@@ -6,7 +6,7 @@ import EmployeeAPI from './EmployeeAPI'
 
 class App extends React.Component {
     constructor(props) {
-        super(props) {
+        super(props); 
             this.state = {
                 employees : [],
                 isEditForm: false,
@@ -17,7 +17,7 @@ class App extends React.Component {
                     job: ""
                 },
                 message: ""
-            },
+            };
 
             this.deleteHandler = this.deleteHandler.bind(this);
             this.addHandler = this.addHandler.bind(this);
@@ -26,13 +26,14 @@ class App extends React.Component {
             this.showEditForm = this.showEditForm.bind(this);
         }
 
-        this.componentDidMount() {
+        componentDidMount() {
             EmployeeAPI.getEmployees().then(data => {
                 this.setState({
                     employees: data.response
                 })
-            })
+            });
         }
+
         resetForm() {
             this.setState({
                 employees: {
@@ -41,25 +42,26 @@ class App extends React.Component {
                     salary: "",
                     job: ""
                 }
-            })
+            });
         }
 
-        this.handleChange(event){
+        handleChange(event) {
             this.setState({
                 employee: {
                     ...this.state.employee,
                     [event.target.name]: event.target.value
                 }
-            })
+            });
         }
-    }
+    
 
     showEditForm(employee) {
         this.setState({
             isEditForm: true, 
             employee: employee
-        })
+        });
     }
+
 
     async deleteHandler(id) {
         const deleteData = await EmployeeAPI.deleteEmployee(id);
@@ -92,7 +94,7 @@ class App extends React.Component {
         this.resetForm();
     }
 
-    async addeHandler(event) {
+    async addHandler(event) {
         event.preventDefault();
         const postData = await EmployeeAPI.createEmployee(this.state.employee);
         const message = postData.message;
@@ -112,8 +114,8 @@ class App extends React.Component {
         if(this.state.employees.length > 0) {
             return (
                 <EmployeeTable employees={this.state.employees}
-                deleteHandler={this.deleteHandler}
-                showEditForm={this.showEditForm}/>
+                               deleteHandler={this.deleteHandler}
+                               showEditForm={this.showEditForm}/>
             );
         }
         return null;
@@ -125,18 +127,19 @@ class App extends React.Component {
                   employee={this.state.employee}
                   handleChange={this.handleChange}
                   handler={!this.state.isEditForm ? this.addHandler : this.updateHandler} 
-                  />
-        )
+            />
+        );
     }
 
 
-renderMessage() {
-    if(this.state.message === "") 
-        return null;
-    return (
-        <Message message={this.state.message}/>
-    )
-    
+    renderMessage() {
+        if(this.state.message === "") 
+            return null;
+        return (
+            <Message message={this.state.message}/>
+        );
+    }
 }
 
-}
+export default App;
+
