@@ -20,3 +20,5 @@ const EmployeeTableRow = (props) => {
         
     )
 }
+
+export default EmployeeTableRow;
