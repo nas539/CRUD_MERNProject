@@ -131,7 +131,6 @@ class App extends React.Component {
         );
     }
 
-
     renderMessage() {
         if(this.state.message === "") 
             return null;
@@ -139,6 +138,21 @@ class App extends React.Component {
             <Message message={this.state.message}/>
         );
     }
+
+    render() {
+        return (
+            <div className="row">
+                <div className="col"></div>
+                <div className="col-10">
+                    {this.renderEmployeeTable}
+                    {this.renderForm}
+                    {this.renderMessage}
+                </div>
+                <div className="col"></div>
+            </div>
+        )
+    } 
+
 }
 
 export default App;
